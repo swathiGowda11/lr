@@ -25,9 +25,28 @@ st.write("---")
 st.header("1. Data Loading and Overview")
 
 # Load the dataset
-df = pd.read_csv('/content/Social_Network_Ads.csv')
-st.subheader("Raw Data (First 5 rows)")
-st.dataframe(df.head())
+st.title("Social Network Ads Data Analysis")
+
+# File uploader
+uploaded_file = st.file_uploader("Upload your CSV file", type="csv")
+
+if uploaded_file:
+    try:
+        # Read the CSV into a DataFrame
+        df = pd.read_csv(uploaded_file)
+        st.success("File uploaded successfully!")
+        st.write("Preview of your data:", df.head())
+        
+        # You can continue with your ML code here, e.g. train_test_split
+        # from sklearn.model_selection import train_test_split
+        # X = df[['Age', 'EstimatedSalary']]
+        # y = df['Purchased']
+        # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
+        
+    except Exception as e:
+        st.error(f"Error reading CSV: {e}")
+else:
+    st.info("Please upload a CSV file to get started.")
 
 st.subheader("Data Information")
 # Capture df.info() output
